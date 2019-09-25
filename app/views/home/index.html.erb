@@ -1,0 +1,24 @@
+
+<% if @doctors.present? %>
+  <h1>Doctors</h1>
+  <table class="ui selectable celled striped table padded">
+    <thead>
+      <th class="center aligned">Doctor Name</th>
+      <th class="center aligned">Speciality</th>
+      <th class="center aligned">Email</th>
+      <th class="center aligned">Appointment</th>
+    </thead>
+    <tbody>
+      <% @doctors.each do |doctor| %>
+        <tr>
+          <td><%= doctor.full_name %></td>
+          <td><%= doctor.specialist %></td>
+          <td><%= doctor.email %></td>
+          <td><%= link_to 'Add Appointment', new_appointment_path(id: doctor.id), class:"ui button red inverted" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h1>Welcome To Website</h1>
+<% end %>

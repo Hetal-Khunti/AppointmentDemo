@@ -1,0 +1,61 @@
+<h1>Appointments</h1>
+
+<table class="ui selectable celled striped table padded">
+  <thead>
+    <tr>
+      <th class="center aligned">Patient</th>
+      <th class="center aligned">Description</th>
+      <th class="center aligned">Date</th>
+      <th class="center aligned">Start time</th>
+      <th class="center aligned">End time</th>
+      <th class="center aligned">Accepted</th>
+      <th class="center aligned" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.patient.full_name %></td>
+        <td><%= appointment.description %></td>
+        <td><%= appointment.date.strftime("%Y-%m-%d") %></td>
+        <td><%= appointment.start_time.strftime("%H:%M %p") %></td>
+        <td><%= appointment.end_time.strftime("%H:%M %p") %></td>
+        <td>
+          <!-- Material switch -->
+          <% st = appointment.status ? "checked" : "" %>
+          <div class="custom-control custom-switch">
+            <label class="switch">
+              <%= check_box_tag :status, appointment.status, appointment.status, id: appointment.id, class: "custom-control-input" %>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </td>
+        <td>
+          <% if Time.now > appointment.end_time %>
+            <%= link_to 'Send Prescription', appointment_send_prescription_path(appointment.id) %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Appointment', new_appointment_path %>
+
+<script type="text/javascript">
+  $('.custom-control-input').change(function() {
+    $.ajax({
+      url: "/appointments/"+$(this).attr("id") +"/update_status/"+ $(this).prop('checked'),
+      type: "get",
+      data: "",
+      success: function(data) {
+        
+      },
+      error: function(data) {}
+    })  
+  });
+</script>

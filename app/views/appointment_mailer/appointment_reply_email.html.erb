@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    
+    <p>Your appointment was <%= @appointment.status? ? "Accepted" : "Declined" %> from <%= @appointment.doctor.first_name %>!</p>
+    <p> Appointment details<br>
+    --------------------------
+    </p>
+    <p>Description: <%= @appointment.description %></p>
+    <p>Date: <%= @appointment.start_time.strftime("%Y-%m-%d") %></p>
+    <p>Start Time: <%= @appointment.start_time.strftime("%H:%M %p") %></p>
+    <p>End Time: <%= @appointment.end_time.strftime("%H:%M %p") %></p>
+    <p>Email: <%= @appointment.doctor.email %></p>
+    
+    </p>
+  </body>
+</html>

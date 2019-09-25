@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    
+    <p>You got a new Appointment from <%= @appointment.patient.first_name %>!</p>
+    <p> Appointment details<br>
+    --------------------------
+    </p>
+    <p>Description: <%= @appointment.description %></p>
+    <p>Date: <%= @appointment.start_time.strftime("%Y-%m-%d") %></p>
+    <p>Start Time: <%= @appointment.start_time.strftime("%H:%M %p") %></p>
+    <p>End Time: <%= @appointment.end_time.strftime("%H:%M %p") %></p>
+    <p>Email: <%= @appointment.doctor.email %></p>
+    
+    <p><br>
+    ----------
+    <p>You can accept or decline appointment from below link</p>
+    <p> <%= link_to "Accept", "http://localhost:3000/appointments/#{@appointment.id}/update_status/true"%></p>
+    <p> <%= link_to "Decline", "http://localhost:3000/appointments/#{@appointment.id}/update_status/false" %></p>
+    </p>
+  </body>
+</html>

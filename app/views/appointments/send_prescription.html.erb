@@ -1,0 +1,27 @@
+<%= tinymce_assets %>
+<%= form_with(model: @note, url: save_prescription_appointments_path) do |form| %>
+  <% if @note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this prescription from being saved:</h2>
+
+      <ul>
+      <% @note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, :class => "tinymce", :rows => 10, :cols => 40 %>
+    <%= form.hidden_field :appointment_id, value: @appointment.id %>
+    <%= form.hidden_field :doctor_id, value: current_user.id %>
+    <%= form.hidden_field :patient_id, value: @appointment.patient.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<%= tinymce %>
